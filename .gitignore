@@ -207,3 +207,8 @@ marimo/_lsp/
 __marimo__/
 
 logs/*
+
+#CUSTOM
+fingerprints.txt
+*.json
+src/main/python/*.txt

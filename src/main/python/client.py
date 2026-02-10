@@ -19,12 +19,12 @@ class Client:
         self.login_timestamp = datetime.now().strftime("%m-%d-%Y-%H-%M-%S")
         self.logged_in = False
 
-    def login(self,password: str) -> None:
+    def login(self,password: str, read_only: bool = False) -> None:
         '''
         Function: login()
         Description: logs a user in using an API call and stores the returned SID.
         '''
-        login_res = self.client.login(self.username, password)
+        login_res = self.client.login(self.username, password,read_only=read_only)
         if not login_res.success:
             raise Exception(f"Login failed: {login_res.error_message}")
         self.sid = login_res.data.get("sid")
@@ -49,6 +49,7 @@ class Client:
         Function: publish()
         Description: Publishes changes made through the API. Prompts user to description of changes.
         '''
+        #TODO - SANITIZE INPUT
         comments = input("please add a description of changes here: ")
         logger.info(f' - publishing changes')
         self.api_call("set-session",{"description":comments})
